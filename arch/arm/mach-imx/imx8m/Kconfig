@@ -445,6 +445,12 @@ config TARGET_LIBREM5
 	select IMX8MQ
 	select SUPPORT_SPL
 	select IMX8M_LPDDR4
+	
+config TARGET_CL_SOM_IMX8
+	bool "Compulab cl-som-imx8"
+	select IMX8MQ
+	select SUPPORT_SPL
+	select IMX8M_LPDDR4
 
 endchoice
 
@@ -482,5 +488,6 @@ source "board/variscite/imx8mn_var_som/Kconfig"
 source "board/toradex/verdin-imx8mm/Kconfig"
 source "board/toradex/verdin-imx8mp/Kconfig"
 source "board/voxelbotics/navqp/Kconfig"
+source "board/compulab/cl-som-imx8/Kconfig"
 
 endif
