@@ -89,10 +89,6 @@
 	"setenv mmcdev 1; run mmc_boot; setenv mmcdev 0; run mmc_boot;"
 
 /* Link Definitions */
-#define CONFIG_LOADADDR			0x40480000
-
-#define CONFIG_SYS_LOAD_ADDR           CONFIG_LOADADDR
-
 #define CONFIG_SYS_INIT_RAM_ADDR        0x40000000
 #define CONFIG_SYS_INIT_RAM_SIZE        0x80000
 #define CONFIG_SYS_INIT_SP_OFFSET \
@@ -139,8 +135,6 @@
 #define CONFIG_SYS_FSL_USDHC_NUM	2
 #define CONFIG_SYS_FSL_ESDHC_ADDR       0
 
-#define CONFIG_SYS_MMC_IMG_LOAD_PART	1
-
 #define CONFIG_CMD_FUSE
 
 /* I2C Configs */
@@ -153,7 +147,6 @@
 #define CONFIG_USB_STORAGE
 
 #define CONFIG_CMD_USB_MASS_STORAGE
-#define CONFIG_USB_GADGET_MASS_STORAGE
 #define CONFIG_USB_FUNCTION_MASS_STORAGE
 
 #define CONFIG_CMD_READ
@@ -183,7 +176,6 @@
 #endif
 
 /* EEPROM */
-#define CONFIG_ENV_EEPROM_IS_ON_I2C
 #define CONFIG_SYS_EEPROM_PAGE_WRITE_BITS      4
 #define CONFIG_SYS_EEPROM_PAGE_WRITE_DELAY_MS  5
 
