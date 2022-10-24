@@ -97,12 +97,7 @@
         (CONFIG_SYS_INIT_RAM_ADDR + CONFIG_SYS_INIT_SP_OFFSET)
 
 #define CONFIG_ENV_OVERWRITE
-#define CONFIG_SYS_MMC_ENV_DEV		0   /* USDHC1/eMMC */
-#define CONFIG_SYS_MMC_ENV_PART		1   /* boot0 area  */
 #define CONFIG_MMCROOT			"/dev/mmcblk0p2"  /* USDHC1 */
-
-/* Size of malloc() pool */
-#define CONFIG_SYS_MALLOC_LEN		((CONFIG_ENV_SIZE + (2*1024) + (16*1024)) * 1024)
 
 #define PHYS_SDRAM                      0x40000000
 #define PHYS_SDRAM_2			0x100000000
@@ -174,13 +169,5 @@
 #if defined(CONFIG_ANDROID_SUPPORT)
 #include "cl-som-imx8_android.h"
 #endif
-
-/* EEPROM */
-#define CONFIG_SYS_EEPROM_PAGE_WRITE_BITS      4
-#define CONFIG_SYS_EEPROM_PAGE_WRITE_DELAY_MS  5
-
-#define CONFIG_SYS_I2C_EEPROM_ADDR_LEN	1
-#define CONFIG_SYS_EEPROM_SIZE		256
-#define CONFIG_SYS_I2C_EEPROM_BUS	1
 
 #endif
