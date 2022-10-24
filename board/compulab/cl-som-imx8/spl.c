@@ -23,6 +23,18 @@
 #include <power/pfuze100_pmic.h>
 #include <spl.h>
 
+#include <image.h>
+#include <init.h>
+#include <log.h>
+#include <asm/global_data.h>
+#include <fsl_sec.h>
+#include <linux/delay.h>
+#include <spl.h>
+// #include "../common/pfuze.h"
+#include <asm/arch/imx8mq_sec_def.h>
+#include <asm/arch/imx8m_csu.h>
+#include <asm/arch/imx8m_rdc.h>
+
 #include "ddr/ddr.h"
 
 DECLARE_GLOBAL_DATA_PTR;
@@ -85,7 +97,7 @@ static struct fsl_esdhc_cfg usdhc_cfg[2] = {
 	{USDHC2_BASE_ADDR, 0, 4},
 };
 
-int board_mmc_init(bd_t *bis)
+int board_mmc_init(struct bd_info *bis)
 {
 	int i, ret;
 	/*
@@ -130,10 +142,8 @@ int board_mmc_init(bd_t *bis)
 	return 0;
 }
 
-#ifdef CONFIG_POWER
+#if CONFIG_IS_ENABLED(POWER_LEGACY)
 #define I2C_PMIC	1
-/* Forward declaration */
-int pfuze_mode_init(struct pmic *p, u32 mode);
 int power_init_board(void)
 {
 	struct pmic *p;

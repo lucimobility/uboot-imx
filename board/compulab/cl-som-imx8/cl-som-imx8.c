@@ -69,21 +69,6 @@ ulong board_get_usable_ram_top(ulong total_size)
         return gd->ram_top;
 }
 
-int dram_init(void)
-{
-	phys_size_t sdram_size;
-	int ret;
-	ret = board_phys_sdram_size(&sdram_size);
-	printf("%s: size %llu\n", __func__, sdram_size);
-	if (ret)
-		return ret;
-
-	/* rom_pointer[1] contains the size of TEE occupies */
-	gd->ram_size = sdram_size - rom_pointer[1];
-
-	return 0;
-}
-
 #ifdef CONFIG_OF_BOARD_SETUP
 #define FDT_PHYADDR "/soc@0/bus@30800000/ethernet@30be0000/mdio/ethernet-phy@0"
 #define FLIP_32B(val) (((val>>24)&0xff) | ((val<<8)&0xff0000) | ((val>>8)&0xff00) | ((val<<24)&0xff000000))
@@ -458,9 +443,11 @@ int board_late_init(void)
 #endif
 	board_bootdev_init();
 
+#if CONFIG_IS_ENABLED(FEC_MXC)
 	ret = setup_mac_address();
 	if (ret < 0)
 		printf("%s: Can't set MAC address\n", __func__);
+#endif
 
 	return 0;
 }

@@ -10,6 +10,7 @@
 #include <asm/io.h>
 #include <stdbool.h>
 #include <mmc.h>
+#include <env.h>
 
 static int check_mmc_autodetect(void)
 {
@@ -36,7 +37,7 @@ void board_late_mmc_env_init(void)
 	u32 dev_no = mmc_get_env_dev();
 
 	if (!check_mmc_autodetect())
-		return;
+	  	return;
 
 	env_set_ulong("mmcdev", dev_no);
 
