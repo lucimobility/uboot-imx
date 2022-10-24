@@ -552,6 +552,7 @@ int blk_get_from_parent(struct udevice *parent, struct udevice **devp)
 	ret = blk_find_from_parent(parent, &dev);
 	if (ret)
 		return ret;
+	// TODO: During env load the device_probe seems to be the slow part.
 	ret = device_probe(dev);
 	if (ret)
 		return ret;

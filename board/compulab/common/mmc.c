@@ -10,6 +10,7 @@
 #include <asm/io.h>
 #include <stdbool.h>
 #include <mmc.h>
+#include <env.h>
 
 static int check_mmc_autodetect(void)
 {
