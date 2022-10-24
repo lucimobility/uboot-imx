@@ -65,7 +65,7 @@
 #define CONFIG_EXTRA_ENV_SETTINGS		\
 	"script=boot.scr\0" \
 	"image=Image\0" \
-	"console=ttymxc2,115200 earlycon=ec_imx6q,0x30880000,115200\0" \
+	"console=ttymxc2,115200 earlycon=ec_imx6q,0x30880000,115200, quiet\0" \
 	"fdt_addr=0x43000000\0"			\
 	"fdt_high=0xffffffffffffffff\0"		\
 	"fdt_file="CONFIG_DEFAULT_DTB"\0" \
@@ -74,7 +74,7 @@
 	"mmcautodetect=yes\0" \
 	"autoload=off\0" \
 	"part=1\0" \
-	"bootscript=echo Running bootscript from ${iface} ...; source\0"	\
+	"bootscript=echo Running LUCI bootscript from ${iface} ...; source\0"	\
 	"iface_boot=if run loadbootscript; then run bootscript; else if run loadimage; then run loadfdt;" \
 	" booti ${loadaddr} - ${fdt_addr}; fi; fi;\0"	\
 	"iface_args=setenv bootargs console=${console} root=${rootdev} rootwait rw \0"	\
@@ -84,12 +84,9 @@
 	"mmc_boot=setenv iface mmc; run ${iface}_pre; run ${iface}_init; run iface_args; run iface_boot\0"	\
 	"mmc_init=mmc rescan\0"	\
 	"mmc_pre=setenv iface mmc; setenv dev ${mmcdev}; setenv rootdev /dev/mmcblk${mmcdev}p2\0"	\
-	"usb_boot=setenv iface usb; run ${iface}_pre; run ${iface}_init; run iface_args; run iface_boot\0"	\
-	"usb_init=usb start\0"	\
-	"usb_pre=setenv iface usb; setenv dev 0; setenv rootdev /dev/sda2\0"	\
 
 #define CONFIG_BOOTCOMMAND \
-	"setenv mmcdev 1; run mmc_boot; run usb_boot; setenv mmcdev 0; run mmc_boot;"
+	"setenv mmcdev 1; run mmc_boot; setenv mmcdev 0; run mmc_boot;"
 
 /* Link Definitions */
 #define CONFIG_LOADADDR			0x40480000

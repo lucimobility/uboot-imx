@@ -48,18 +48,7 @@ struct i2c_pads_info i2c_pad_info1 = {
 
 int board_mmc_getcd(struct mmc *mmc)
 {
-	struct fsl_esdhc_cfg *cfg = (struct fsl_esdhc_cfg *)mmc->priv;
-	int ret = 0;
-
-	switch (cfg->esdhc_base) {
-	case USDHC1_BASE_ADDR:
-		ret = 1;
-		break;
-	case USDHC2_BASE_ADDR:
-		ret = !gpio_get_value(USDHC2_CD_GPIO);
-		return ret;
-	}
-
+	// KJL: All the MMC devices (internal MMC and external SD are considered "non-removable")
 	return 1;
 }
 
