@@ -501,6 +501,7 @@ int blk_get_from_parent(struct udevice *parent, struct udevice **devp)
 		      __func__, uclass_get_name(id), dev->name);
 		return -ENOTBLK;
 	}
+	// TODO: During env load the device_probe seems to be the slow part.
 	ret = device_probe(dev);
 	if (ret)
 		return ret;

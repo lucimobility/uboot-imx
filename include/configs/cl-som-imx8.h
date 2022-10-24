@@ -11,11 +11,8 @@
 #include <asm/arch/imx-regs.h>
 #include "imx_env.h"
 
-#define CONFIG_SPL_MAX_SIZE		(148 * 1024)
+#define CONFIG_SPL_MAX_SIZE		(152 * 1024)
 #define CONFIG_SYS_MONITOR_LEN		(512 * 1024)
-#define CONFIG_SYS_MMCSD_RAW_MODE_U_BOOT_USE_SECTOR
-#define CONFIG_SYS_MMCSD_RAW_MODE_U_BOOT_SECTOR	(0x300 + CONFIG_SECONDARY_BOOT_SECTOR_OFFSET)
-#define CONFIG_SYS_MMCSD_FS_BOOT_PARTITION	1
 
 #ifdef CONFIG_SPL_BUILD
 /*#define CONFIG_ENABLE_DDR_TRAINING_DEBUG*/
@@ -37,13 +34,10 @@
 
 #define CONFIG_SYS_I2C
 
-#define CONFIG_POWER
 #define CONFIG_POWER_I2C
 #define CONFIG_POWER_PFUZE100
 #define CONFIG_POWER_PFUZE100_I2C_ADDR 0x08
 #endif
-
-#define CONFIG_REMAKE_ELF
 
 /* ENET Config */
 /* ENET1 */
@@ -65,7 +59,7 @@
 #define CONFIG_EXTRA_ENV_SETTINGS		\
 	"script=boot.scr\0" \
 	"image=Image\0" \
-	"console=ttymxc2,115200 earlycon=ec_imx6q,0x30880000,115200\0" \
+	"console=ttymxc2,115200 earlycon=ec_imx6q,0x30880000,115200, quiet\0" \
 	"fdt_addr=0x43000000\0"			\
 	"fdt_high=0xffffffffffffffff\0"		\
 	"fdt_file="CONFIG_DEFAULT_DTB"\0" \
@@ -74,7 +68,7 @@
 	"mmcautodetect=yes\0" \
 	"autoload=off\0" \
 	"part=1\0" \
-	"bootscript=echo Running bootscript from ${iface} ...; source\0"	\
+	"bootscript=echo Running LUCI bootscript from ${iface} ...; source\0"	\
 	"iface_boot=if run loadbootscript; then run bootscript; else if run loadimage; then run loadfdt;" \
 	" booti ${loadaddr} - ${fdt_addr}; fi; fi;\0"	\
 	"iface_args=setenv bootargs console=${console} root=${rootdev} rootwait rw \0"	\
@@ -84,18 +78,11 @@
 	"mmc_boot=setenv iface mmc; run ${iface}_pre; run ${iface}_init; run iface_args; run iface_boot\0"	\
 	"mmc_init=mmc rescan\0"	\
 	"mmc_pre=setenv iface mmc; setenv dev ${mmcdev}; setenv rootdev /dev/mmcblk${mmcdev}p2\0"	\
-	"usb_boot=setenv iface usb; run ${iface}_pre; run ${iface}_init; run iface_args; run iface_boot\0"	\
-	"usb_init=usb start\0"	\
-	"usb_pre=setenv iface usb; setenv dev 0; setenv rootdev /dev/sda2\0"	\
 
 #define CONFIG_BOOTCOMMAND \
-	"setenv mmcdev 1; run mmc_boot; run usb_boot; setenv mmcdev 0; run mmc_boot;"
+	"setenv mmcdev 1; run mmc_boot; setenv mmcdev 0; run mmc_boot;"
 
 /* Link Definitions */
-#define CONFIG_LOADADDR			0x40480000
-
-#define CONFIG_SYS_LOAD_ADDR           CONFIG_LOADADDR
-
 #define CONFIG_SYS_INIT_RAM_ADDR        0x40000000
 #define CONFIG_SYS_INIT_RAM_SIZE        0x80000
 #define CONFIG_SYS_INIT_SP_OFFSET \
@@ -103,20 +90,12 @@
 #define CONFIG_SYS_INIT_SP_ADDR \
         (CONFIG_SYS_INIT_RAM_ADDR + CONFIG_SYS_INIT_SP_OFFSET)
 
-#define CONFIG_ENV_OVERWRITE
-#define CONFIG_SYS_MMC_ENV_DEV		0   /* USDHC1/eMMC */
-#define CONFIG_SYS_MMC_ENV_PART		1   /* boot0 area  */
 #define CONFIG_MMCROOT			"/dev/mmcblk0p2"  /* USDHC1 */
 
-/* Size of malloc() pool */
-#define CONFIG_SYS_MALLOC_LEN		((CONFIG_ENV_SIZE + (2*1024) + (16*1024)) * 1024)
-
 #define PHYS_SDRAM                      0x40000000
-#define PHYS_SDRAM_2			0x100000000
 
 /* This value will be recalculated using the ddr detection code */
 #define PHYS_SDRAM_SIZE			0x40000000
-#define PHYS_SDRAM_2_SIZE		0x0
 
 #define CONFIG_SYS_SDRAM_BASE		PHYS_SDRAM
 
@@ -137,27 +116,14 @@
 #define CONFIG_SYS_PBSIZE		(CONFIG_SYS_CBSIZE + \
 					sizeof(CONFIG_SYS_PROMPT) + 16)
 
-#define CONFIG_IMX_BOOTAUX
-
 #define CONFIG_SYS_FSL_USDHC_NUM	2
 #define CONFIG_SYS_FSL_ESDHC_ADDR       0
-
-#define CONFIG_SYS_MMC_IMG_LOAD_PART	1
-
-#define CONFIG_CMD_FUSE
 
 /* I2C Configs */
 #define CONFIG_SYS_I2C_SPEED		  100000
 
 /* USB configs */
 #ifndef CONFIG_SPL_BUILD
-
-#define CONFIG_CMD_USB
-#define CONFIG_USB_STORAGE
-
-#define CONFIG_CMD_USB_MASS_STORAGE
-#define CONFIG_USB_GADGET_MASS_STORAGE
-#define CONFIG_USB_FUNCTION_MASS_STORAGE
 
 #define CONFIG_CMD_READ
 
@@ -184,14 +150,5 @@
 #if defined(CONFIG_ANDROID_SUPPORT)
 #include "cl-som-imx8_android.h"
 #endif
-
-/* EEPROM */
-#define CONFIG_ENV_EEPROM_IS_ON_I2C
-#define CONFIG_SYS_EEPROM_PAGE_WRITE_BITS      4
-#define CONFIG_SYS_EEPROM_PAGE_WRITE_DELAY_MS  5
-
-#define CONFIG_SYS_I2C_EEPROM_ADDR_LEN	1
-#define CONFIG_SYS_EEPROM_SIZE		256
-#define CONFIG_SYS_I2C_EEPROM_BUS	1
 
 #endif
