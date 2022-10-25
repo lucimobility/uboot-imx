@@ -458,9 +458,11 @@ int board_late_init(void)
 #endif
 	board_bootdev_init();
 
+#if CONFIG_IS_ENABLED(FEC_MXC)
 	ret = setup_mac_address();
 	if (ret < 0)
 		printf("%s: Can't set MAC address\n", __func__);
+#endif
 
 	return 0;
 }

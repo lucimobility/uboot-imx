@@ -137,12 +137,6 @@
 /* USB configs */
 #ifndef CONFIG_SPL_BUILD
 
-#define CONFIG_CMD_USB
-#define CONFIG_USB_STORAGE
-
-#define CONFIG_CMD_USB_MASS_STORAGE
-#define CONFIG_USB_FUNCTION_MASS_STORAGE
-
 #define CONFIG_CMD_READ
 
 #endif
