@@ -10,24 +10,16 @@
 #include <asm/io.h>
 #include <stdbool.h>
 #include <mmc.h>
+#include <env.h>
 
 static int check_mmc_autodetect(void)
 {
-	printf("Starting check mmc autodetect\n");
 	char *autodetect_str = env_get("mmcautodetect");
-
-	if (autodetect_str != NULL) {
-		printf("Autodetect STR: %s\n", autodetect_str);
-	} else {
-		printf("Autodetect STR is null\n");
-	}
 
 	if ((autodetect_str != NULL) &&
 		(strcmp(autodetect_str, "yes") == 0)) {
-		printf("Autodetect STR not null and yes\n");
 		return 1;
 	}
-	printf("Autodetect STR null\n");
 
 	return 0;
 }
@@ -46,8 +38,9 @@ void board_late_mmc_env_init(void)
 	u32 dev_no = mmc_get_env_dev();
 	printf("Got dev no: %d\n", dev_no);
 
+	// if (env_get_yesno("mmcautodetect") != 1)
 	if (!check_mmc_autodetect())
-		return;
+	  	return;
 
 	printf("Checked MMC autodetect\n");
 	env_set_ulong("mmcdev", dev_no);

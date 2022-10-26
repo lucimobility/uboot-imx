@@ -126,6 +126,7 @@ char *env_get(const char *name)
 
 		if (ep != NULL) {
 			printf("Value: %s\n", ep->data);
+			printf("Pointer: %p\n", ep->data);
 		}
 		return ep ? ep->data : NULL;
 	}
