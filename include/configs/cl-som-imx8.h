@@ -11,11 +11,8 @@
 #include <asm/arch/imx-regs.h>
 #include "imx_env.h"
 
-#define CONFIG_SPL_MAX_SIZE		(148 * 1024)
+#define CONFIG_SPL_MAX_SIZE		(152 * 1024)
 #define CONFIG_SYS_MONITOR_LEN		(512 * 1024)
-#define CONFIG_SYS_MMCSD_RAW_MODE_U_BOOT_USE_SECTOR
-#define CONFIG_SYS_MMCSD_RAW_MODE_U_BOOT_SECTOR	(0x300 + CONFIG_SECONDARY_BOOT_SECTOR_OFFSET)
-#define CONFIG_SYS_MMCSD_FS_BOOT_PARTITION	1
 
 #ifdef CONFIG_SPL_BUILD
 /*#define CONFIG_ENABLE_DDR_TRAINING_DEBUG*/
@@ -41,8 +38,6 @@
 #define CONFIG_POWER_PFUZE100
 #define CONFIG_POWER_PFUZE100_I2C_ADDR 0x08
 #endif
-
-#define CONFIG_REMAKE_ELF
 
 /* ENET Config */
 /* ENET1 */
@@ -95,15 +90,12 @@
 #define CONFIG_SYS_INIT_SP_ADDR \
         (CONFIG_SYS_INIT_RAM_ADDR + CONFIG_SYS_INIT_SP_OFFSET)
 
-#define CONFIG_ENV_OVERWRITE
-#define CONFIG_MMCROOT			"/dev/mmcblk0p2"  /* USDHC1 */
+#define CONFIG_MMCROOT			"/dev/mmcblk1p2"  /* USDHC2 */ // NOTE: KJL, put this back for mender
 
 #define PHYS_SDRAM                      0x40000000
-#define PHYS_SDRAM_2			0x100000000
 
 /* This value will be recalculated using the ddr detection code */
 #define PHYS_SDRAM_SIZE			0x40000000
-#define PHYS_SDRAM_2_SIZE		0x0
 
 #define CONFIG_SYS_SDRAM_BASE		PHYS_SDRAM
 
@@ -124,12 +116,8 @@
 #define CONFIG_SYS_PBSIZE		(CONFIG_SYS_CBSIZE + \
 					sizeof(CONFIG_SYS_PROMPT) + 16)
 
-#define CONFIG_IMX_BOOTAUX
-
 #define CONFIG_SYS_FSL_USDHC_NUM	2
 #define CONFIG_SYS_FSL_ESDHC_ADDR       0
-
-#define CONFIG_CMD_FUSE
 
 /* I2C Configs */
 #define CONFIG_SYS_I2C_SPEED		  100000

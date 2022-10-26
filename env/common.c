@@ -112,6 +112,7 @@ int eth_env_set_enetaddr(const char *name, const uint8_t *enetaddr)
  */
 char *env_get(const char *name)
 {
+	printf("Getting env: %s\n", name);
 	if (gd->flags & GD_FLG_ENV_READY) { /* after import into hashtable */
 		struct env_entry e, *ep;
 
@@ -121,13 +122,22 @@ char *env_get(const char *name)
 		e.data	= NULL;
 		hsearch_r(e, ENV_FIND, &ep, &env_htab, 0);
 
+		printf("Inside hash table %p\n", ep);
+
+		if (ep != NULL) {
+			printf("Value: %s\n", ep->data);
+		}
 		return ep ? ep->data : NULL;
 	}
+	printf("Outside hash table\n");
 
 	/* restricted capabilities before import */
-	if (env_get_f(name, (char *)(gd->env_buf), sizeof(gd->env_buf)) >= 0)
+	if (env_get_f(name, (char *)(gd->env_buf), sizeof(gd->env_buf)) >= 0) {
+		printf("Env get f\n");
 		return (char *)(gd->env_buf);
+	}
 
+	printf("Not env get f\n");
 	return NULL;
 }
 
