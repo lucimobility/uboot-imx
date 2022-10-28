@@ -427,20 +427,20 @@
 };
 
 &usb3_phy0 {
-	status = "okay";
+	status = "disabled";
 };
 
 &usb_dwc3_0 {
-	status = "okay";
+	status = "disabled";
 	dr_mode = "host";
 };
 
 &usb3_phy1 {
-	status = "okay";
+	status = "disabled";
 };
 
 &usb_dwc3_1 {
-	status = "okay";
+	status = "disabled";
 	dr_mode = "host";
 };
 
