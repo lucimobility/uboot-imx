@@ -158,7 +158,7 @@ void spl_dram_init(void)
 	if (ddr_info_mrr == 0xFFFFFFFF ) {
 		printf("DDRINFO(M): mr5-8 [ 0x%x ] is invalid; reset\n", ddr_info_mrr);
 		SPL_TCM_INIT;
-		do_reset(NULL,0,0,NULL);
+		// do_reset(NULL,0,0,NULL);
 	}
 
 	/* Let's try to find a match with the current settings */
@@ -175,7 +175,7 @@ void spl_dram_init(void)
 
 	if (ddr_info_mrr != ddr_info) {
 		SPL_TCM_INIT;
-		do_reset(NULL,0,0,NULL);
+		// do_reset(NULL,0,0,NULL);
 	}
 
 	SPL_TCM_FINI;
@@ -192,7 +192,7 @@ void spl_dram_init(void)
 		}
 		if (reset_required) {
 			printf("DDRINFO(!): Reset after a fast ddr discovery\n");
-			do_reset(NULL,0,0,NULL);
+			// do_reset(NULL,0,0,NULL);
 		}
 
 	}

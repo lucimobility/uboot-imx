@@ -11,9 +11,6 @@
 #include <asm/arch/imx-regs.h>
 #include "imx_env.h"
 
-#define CONFIG_SPL_MAX_SIZE		(152 * 1024)
-#define CONFIG_SYS_MONITOR_LEN		(512 * 1024)
-
 #ifdef CONFIG_SPL_BUILD
 /*#define CONFIG_ENABLE_DDR_TRAINING_DEBUG*/
 #define CONFIG_SPL_LDSCRIPT		"arch/arm/cpu/armv8/u-boot-spl.lds"
@@ -36,7 +33,7 @@
 
 #define CONFIG_POWER_I2C
 #define CONFIG_POWER_PFUZE100
-#define CONFIG_POWER_PFUZE100_I2C_ADDR 0x08
+#define CFG_POWER_PFUZE100_I2C_ADDR 0x08
 #endif
 
 /* ENET Config */
@@ -48,11 +45,8 @@
 #define CONFIG_FEC_MXC_PHYADDR          0
 #define FEC_QUIRK_ENET_MAC
 
-#define CONFIG_PHY_GIGE
 #define IMX_FEC_BASE			0x30BE0000
 
-#define CONFIG_PHYLIB
-#define CONFIG_PHY_ATHEROS
 #endif
 
 /* Initial environment variables */
@@ -83,12 +77,8 @@
 	"setenv mmcdev 1; run mmc_boot; setenv mmcdev 0; run mmc_boot;"
 
 /* Link Definitions */
-#define CONFIG_SYS_INIT_RAM_ADDR        0x40000000
-#define CONFIG_SYS_INIT_RAM_SIZE        0x80000
-#define CONFIG_SYS_INIT_SP_OFFSET \
-        (CONFIG_SYS_INIT_RAM_SIZE - GENERATED_GBL_DATA_SIZE)
-#define CONFIG_SYS_INIT_SP_ADDR \
-        (CONFIG_SYS_INIT_RAM_ADDR + CONFIG_SYS_INIT_SP_OFFSET)
+#define CFG_SYS_INIT_RAM_ADDR        0x40000000
+#define CFG_SYS_INIT_RAM_SIZE        0x80000
 
 #define CONFIG_MMCROOT			"/dev/mmcblk0p2"  /* USDHC1 */
 
@@ -97,35 +87,30 @@
 /* This value will be recalculated using the ddr detection code */
 #define PHYS_SDRAM_SIZE			0x40000000
 
-#define CONFIG_SYS_SDRAM_BASE		PHYS_SDRAM
+#define CFG_SYS_SDRAM_BASE		PHYS_SDRAM
 
 #define MEMTEST_DIVIDER   2
 #define MEMTEST_NUMERATOR 1
 
 #define CONFIG_BAUDRATE			115200
 
-#define CONFIG_MXC_UART_BASE		UART3_BASE_ADDR
+#define CFG_MXC_UART_BASE		UART3_BASE_ADDR
 
 /* Monitor Command Prompt */
 #undef CONFIG_SYS_PROMPT
 #define CONFIG_SYS_PROMPT		"u-boot=> "
 #define CONFIG_SYS_PROMPT_HUSH_PS2     "> "
-#define CONFIG_SYS_CBSIZE              2048
 #define CONFIG_SYS_MAXARGS             64
 #define CONFIG_SYS_BARGSIZE CONFIG_SYS_CBSIZE
-#define CONFIG_SYS_PBSIZE		(CONFIG_SYS_CBSIZE + \
-					sizeof(CONFIG_SYS_PROMPT) + 16)
 
-#define CONFIG_SYS_FSL_USDHC_NUM	2
-#define CONFIG_SYS_FSL_ESDHC_ADDR       0
+#define CFG_SYS_FSL_USDHC_NUM	2
+#define CFG_SYS_FSL_ESDHC_ADDR       0
 
 /* I2C Configs */
 #define CONFIG_SYS_I2C_SPEED		  100000
 
 /* USB configs */
 #ifndef CONFIG_SPL_BUILD
-
-#define CONFIG_CMD_READ
 
 #endif
 
@@ -134,18 +119,6 @@
 #define CONFIG_USBD_HS
 
 #define CPL_NET_DISC_LOGICS
-
-/* Framebuffer */
-#ifdef CONFIG_VIDEO
-#define CONFIG_VIDEO_IMXDCSS
-#define CONFIG_VIDEO_BMP_RLE8
-#define CONFIG_SPLASH_SCREEN
-#define CONFIG_SPLASH_SCREEN_ALIGN
-#define CONFIG_BMP_16BPP
-#define CONFIG_VIDEO_LOGO
-#define CONFIG_VIDEO_BMP_LOGO
-#define CONFIG_IMX_VIDEO_SKIP
-#endif
 
 #if defined(CONFIG_ANDROID_SUPPORT)
 #include "cl-som-imx8_android.h"
