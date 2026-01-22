@@ -50,31 +50,9 @@
 #endif
 
 /* Initial environment variables */
-#define CONFIG_EXTRA_ENV_SETTINGS		\
-	"image=boot/Image\0" \
-	"console=ttymxc2,115200 earlycon=ec_imx6q,0x30880000,115200, quiet\0" \
-	"fdt_addr=0x43000000\0"			\
-	"fdt_high=0xffffffffffffffff\0"		\
-	"fdt_file=boot/"CONFIG_DEFAULT_DTB"\0" \
-	"initrd_addr=0x43800000\0"		\
-	"initrd_high=0xffffffffffffffff\0" \
-	"mmcautodetect=yes\0" \
-	"autoload=off\0" \
-	"part=1\0" \
-	"iface_boot=if run loadimage; then run loadfdt;" \
-	" booti ${loadaddr} - ${fdt_addr}; fi;\0"	\
-	"iface_args=setenv bootargs console=${console} root=${mender_kernel_root} rootwait rw \0"	\
-	"loadfdt=ext4load ${mender_uboot_root} ${fdt_addr} ${fdt_file}\0"	\
-	"loadimage=ext4load ${mender_uboot_root} ${loadaddr} ${image}\0"	\
-	"mmc_boot=run iface_args; run iface_boot\0"	\
-	"mmcdev=0\0"	\
-
-#define CONFIG_BOOTCOMMAND \
-	"mmc dev ${mmcdev}; if mmc rescan; then " \
-		"run mender_setup; " \
-		"run mmc_boot; " \
-		"run mender_try_to_recover; " \
-	"else echo mmc error; fi"
+#define CFG_EXTRA_ENV_SETTINGS		\
+	"kernel_addr_r=" __stringify(CONFIG_SYS_LOAD_ADDR) "\0" \
+	"fdt_addr_r=0x43000000\0"			\
 
 /* Link Definitions */
 #define CFG_SYS_INIT_RAM_ADDR        0x40000000
