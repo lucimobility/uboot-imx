@@ -54,7 +54,7 @@
 	"bootscript=echo Running LUCI bootscript from ${iface} ...; source\0"	\
 	"iface_boot=if run loadbootscript; then run bootscript; else if run loadimage; then run loadfdt;" \
 	" booti ${loadaddr} - ${fdt_addr}; fi; fi;\0"	\
-	"iface_args=setenv bootargs console=${console} root=${rootdev} rootwait rw \0"	\
+	"iface_args=setenv bootargs console=${console} root=${rootdev} rootwait rw net.ifnames=0\0"	\
 	"loadbootscript=load ${iface} ${dev}:${part} ${loadaddr} ${script}\0"	\
 	"loadfdt=load ${iface} ${dev}:${part} ${fdt_addr} ${fdt_file}\0"	\
 	"loadimage=load ${iface} ${dev}:${part} ${loadaddr} ${image}\0"	\
